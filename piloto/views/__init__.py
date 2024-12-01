@@ -8,4 +8,5 @@ from .ListarCampus import ListarCampus
 from .ExcluirAluno import ExcluirAlunoView
 from .Login import LoginView
 from .AlunoListCreateView import AlunoListCreateView
+from .CampusCursosListView import CampusCursosListView
 
