@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Lista de Campus e Cursos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of campusCursos">
+      <!-- Exibe o nome do campus -->
+      <ion-card>
+        <ion-card-header>
+          <h2>Campus: {{ item.nome }}</h2>
+        </ion-card-header>
+        <!-- Exibe a lista de cursos do campus -->
+        <ion-card-content>
+          <ion-list>
+            <h3>Cursos:</h3>
+            <ion-item *ngFor="let curso of item.cursos">
+              <ion-label>{{ curso.nome }}</ion-label> <!-- Nome do Curso -->
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "consumindo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

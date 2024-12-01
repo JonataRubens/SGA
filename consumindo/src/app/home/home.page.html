@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Lista de Alunos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item *ngFor="let aluno of dados">
+      <ion-label>
+        <h2>{{ aluno.nomeCompleto }}</h2>
+        <p>CPF: {{ aluno.cpf }}</p>
+        <p>Curso: {{ aluno.curso }}</p>
+        <p>Situação: {{ aluno.situacao }}</p>
+        <p>Data de Nascimento: {{ aluno.dataNascimento || 'N/A' }}</p>
+        <p>Forma de Ingresso: {{ aluno.formaIngresso }}</p>
+        <ion-button 
+          color="danger" 
+          expand="full" 
+          (click)="confirmarDelecao(aluno.id)">
+          Excluir
+        </ion-button>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
