@@ -1,0 +1,55 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Campi e seus Cursos</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="bg-primary text-white">Campus</th>
+                            <th class="bg-success text-white">Cursos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for campus in campi %}
+                            <tr>
+                                <td class="text-primary font-weight-bold">
+                                    <i class="fas fa-university text-primary"></i>
+                                    <span class="text-primary font-weight-bold">{{ campus.nome }}</span>
+                                </td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        {% if campus.curso_set.all %}
+                                            {% for curso in campus.curso_set.all %}
+                                                <!-- Ícone de livro para cursos -->
+                                                <li>
+                                                    <i class="fas fa-book text-success"></i>
+                                                    <span class="text-success font-weight-bold">{{ curso.nome }}</span>
+                                                </li>
+                                            {% endfor %}
+                                        {% else %}
+                                            <!-- Mensagem para campus sem cursos -->
+                                            <li>
+                                                <i class="fas fa-exclamation-circle text-muted"></i>
+                                                <span class="text-muted">Campus sem cursos</span>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

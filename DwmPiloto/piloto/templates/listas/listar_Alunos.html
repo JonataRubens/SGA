@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Todos os alunos</h6>
+        </div>
+        <div class="card-body">
+            <!-- Filtro -->
+            <form method="GET" action="{% url 'lista_alunos' %}">
+                <div class="form-row">
+                    <div class="col">
+                        <label for="campus">Campus</label>
+                        <select class="form-control" name="campus" id="campus">
+                            <option value="">-- Selecione o Campus --</option>
+                            {% for campus in campus_options %}
+                                <option value="{{ campus.id }}" {% if campus.id == campus_filter %}selected{% endif %}>
+                                    {{ campus.nome }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="curso">Curso</label>
+                        <select class="form-control" name="curso" id="curso">
+                            <option value="">-- Selecione o Curso --</option>
+                            {% for curso in curso_options %}
+                                <option value="{{ curso.id }}" {% if curso.id == curso_filter %}selected{% endif %}>
+                                    {{ curso.nome }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary" style="margin-top: 32px;">Filtrar</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="table-responsive" style="margin-top: 20px;">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nome Completo</th>
+                            <th>Curso</th>
+                            <th>Campus</th>
+                            <th>Data de Nascimento</th>
+                            <th>Situação</th>
+                            <th>Forma de Ingresso</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for aluno in alunos %}
+                            <tr>
+                                <td>{{ aluno.nomeCompleto }}</td>
+                                <td>{{ aluno.curso }}</td>
+                                <td>{{ aluno.campus }}</td>
+                                <td>{{ aluno.dataNascimento }}</td>
+                                <td>{{ aluno.situacao }}</td>
+                                <td>{{ aluno.formaIngresso }}</td>
+                                <td>
+                                    <!-- Botão de editar, abre o modal -->
+                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#editModal{{ aluno.id }}" onclick="preencherModal({{ aluno.id }})">Editar</button>
+                                </td>
+                            </tr>
+
+                            <!-- Modal de Edição -->
+                                <div class="modal fade" id="editModal{{ aluno.id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModalLabel">Editar Aluno: {{ aluno.nomeCompleto }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="formEditAluno{{ aluno.id }}" method="POST">
+                                                    {% csrf_token %}
+                                                    <div class="form-group">
+                                                        
+                                                        <label for="nome_completo">Nome Completo</label>
+                                                        <input type="text" class="form-control" id="nomeCompleto{{ aluno.id }}" name="nomeCompleto" value="{{ aluno.nomeCompleto }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="curso">Curso</label>
+                                                        <select class="form-control" id="curso{{ aluno.id }}" name="curso">
+                                                            {% for curso in curso_options %}
+                                                                <option value="{{ curso.id }}" {% if curso.id == aluno.curso.id %}selected{% endif %}>{{ curso.nome }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="campus">Campus</label>
+                                                        <select class="form-control" id="campus{{ aluno.id }}" name="campus">
+                                                            {% for campus in campus_options %}
+                                                                <option value="{{ campus.id }}" {% if campus.id == aluno.campus.id %}selected{% endif %}>{{ campus.nome }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="data_nascimento">Data de Nascimento</label>
+                                                        <input type="date" class="form-control" id="data_nascimento{{ aluno.id }}" name="data_nascimento" value="{{ aluno.data_nascimento|date:'Y-m-d' }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="situacao">Situação</label>
+                                                        <select class="form-control" id="situacao{{ aluno.id }}" name="situacao">
+                                                            {% for valor, descricao in SITUACAO_CHOICES %}
+                                                                <option value="{{ valor }}" {% if aluno.situacao == valor %}selected{% endif %}>{{ descricao }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="forma_ingresso">Forma de Ingresso</label>
+                                                        <select class="form-control" id="forma_ingresso{{ aluno.id }}" name="forma_ingresso">
+                                                            {% for forma in formas_ingresso %}
+                                                                <option value="{{ forma.id }}" {% if forma.id == aluno.forma_ingresso.id %}selected{% endif %}>{{ forma.nome }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <button class="btn btn-primary" type="submit">Salvar Alterações</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+    document.getElementById('campus').addEventListener('change', function() {
+    var campusId = this.value;
+    var cursoSelect = document.getElementById('curso');
+    
+    // Limpa o campo de curso
+    cursoSelect.innerHTML = '<option value="">-- Selecione o Curso --</option>';
+    
+    if (campusId) {
+        fetch(`/cursosCampus/${campusId}/`)
+            .then(response => response.json())
+            .then(data => {
+                data.cursos.forEach(curso => {
+                    var option = document.createElement('option');
+                    option.value = curso.id;
+                    option.textContent = curso.nome;
+                    cursoSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Erro:', error));
+    }
+});
+
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Script do jQuery e Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</script>
+
+
+{% endblock %}
