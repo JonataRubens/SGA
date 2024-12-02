@@ -1,5 +1,7 @@
 from django.urls import path
 from piloto.views import CadastrarAlunoView, CampusCreateView, CursoCreateView, DefaultView, ExcluirAlunoView, ListaAlunosView, EditarAlunoView, ListarCampus, AlunoListView, LoginView, CampusCursosListView, AlunoDeleteView, AtualizarSituacaoView
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 
@@ -20,3 +22,5 @@ urlpatterns = [
     path('api/campusCursos/', CampusCursosListView.as_view(), name='campusCursos'),
     path('api/alunos/<int:pk>/', AlunoDeleteView.as_view(), name='deleteAluno'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     'fabrica',
     'piloto',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [
