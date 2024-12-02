@@ -19,6 +19,9 @@ class ListaAlunosView(ListView):
         if curso_filter:
             queryset = queryset.filter(curso__id=curso_filter)
 
+        for aluno in queryset:
+            aluno.ativoNaInstituicao = "Sim" if aluno.situacao and aluno.situacao.estaNaInstituicao else "Não"
+
         return queryset
 
     def get_context_data(self, **kwargs):

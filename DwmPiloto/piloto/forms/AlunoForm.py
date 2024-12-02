@@ -6,6 +6,6 @@ class AlunoForm(forms.ModelForm):
     class Meta:
         model = Aluno
         fields = [
-            'nomeCompleto', 'cpf', 'curso', 'situacao',
+            'nomeCompleto', 'cpf', 'curso',
             'dataNascimento', 'foto', 'formaIngresso'
         ]

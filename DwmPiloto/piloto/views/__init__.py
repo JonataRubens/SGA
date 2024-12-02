@@ -7,6 +7,8 @@ from .EditarAluno import EditarAlunoView
 from .ListarCampus import ListarCampus
 from .ExcluirAluno import ExcluirAlunoView
 from .Login import LoginView
+from .AtualizarSituacao import AtualizarSituacaoView
 from .Api import AlunoListView, CampusCursosListView, AlunoDeleteView
+
 
 

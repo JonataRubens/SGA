@@ -14,7 +14,7 @@
             <!-- Formulário de Filtros -->
             <form method="GET" action="{% url 'listaAlunos' %}">
                 <div class="form-row">
-                    <!-- Campo de Campus -->
+                    <!-- Filtros campus e curso -->
                     <div class="col">
                         <label for="campus">Campus</label>
                         <select class="form-control" name="campus" id="campus">
@@ -27,7 +27,6 @@
                         </select>
                     </div>
 
-                    <!-- Campo de Curso -->
                     <div class="col">
                         <label for="curso">Curso</label>
                         <select class="form-control" name="curso" id="curso">
@@ -40,7 +39,6 @@
                         </select>
                     </div>
 
-                    <!-- Botão de Filtrar -->
                     <div class="col">
                         <button type="submit" class="btn btn-primary" style="margin-top: 32px;">Listar</button>
                         <a href="{% url 'listaAlunos' %}" class="btn btn-secondary" style="margin-top: 32px; margin-left: 4px;">Limpar Filtros</a>
@@ -58,6 +56,7 @@
                             <th>Data de Cadastro</th>
                             <th>Situação</th>
                             <th>Forma de Ingresso</th>
+                            <th>Ativo</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -69,8 +68,48 @@
                                 <td>{{ aluno.dataCadastro }}</td>
                                 <td>{{ aluno.situacao }}</td>
                                 <td>{{ aluno.formaIngresso }}</td>
+                                <td>{{ aluno.ativoNaInstituicao }}</td>
                                 <td>
                                     <a href="{% url 'editarAluno' aluno.id %}" class="btn btn-info btn-sm">Editar</a>
+
+                                    <!-- Botão para abrir o modal -->
+                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#situacaoModal{{ aluno.id }}">
+                                        Situação
+                                    </button>
+
+                                    <!-- Modal para alteração da situação -->
+                                    <div class="modal fade" id="situacaoModal{{ aluno.id }}" tabindex="-1" role="dialog" aria-labelledby="situacaoModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="situacaoModalLabel">Alterar Situação do Aluno</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form method="POST" action="{% url 'atualizarSituacao' aluno.id %}">
+                                                    {% csrf_token %}
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="situacao">Situação</label>
+                                                            <select name="situacao" class="form-control" id="situacao">
+                                                                {% for situacao in situacao_option %}
+                                                                    <option value="{{ situacao.id }}" {% if situacao == aluno.situacao %}selected{% endif %}>
+                                                                        {{ situacao.nome }}
+                                                                    </option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                        <button type="submit" class="btn btn-primary">Alterar Situação</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <a href="{% url 'excluirAluno' aluno.id %}" class="btn btn-danger btn-sm">Excluir</a>
                                 </td>
                             </tr>
