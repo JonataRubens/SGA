@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'editar-aluno/:id', // A rota agora vai chamar o módulo EditarAlunoPageModule
     loadChildren: () => import('./editar-aluno/editar-aluno.module').then(m => m.EditarAlunoPageModule)
   },
+  {
+    path: 'login', // A rota para login
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+  },
 ];
 
 @NgModule({

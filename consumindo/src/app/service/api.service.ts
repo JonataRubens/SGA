@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class ApiService {
   private url: string = "http://127.0.0.1:8000/api/alunos";
   private urlCampusCursos: string = "http://127.0.0.1:8000/api/campusCursos/";
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,  private router: Router) { }
 
   getData(): Observable<any[]> { // Atualize o tipo de retorno aqui
     return this.http.get<any[]>(this.url); // Especifique o tipo na chamada do HttpClient
