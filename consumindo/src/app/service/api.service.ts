@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
   private url: string = "http://127.0.0.1:8000/api/alunos";
-  private urlCampusCursos: string = "http://127.0.0.1:8000/api/campus-cursos/";
+  private urlCampusCursos: string = "http://127.0.0.1:8000/api/campusCursos/";
   
   constructor(private http: HttpClient) { }
 
@@ -23,4 +23,30 @@ export class ApiService {
     const url = `http://127.0.0.1:8000/api/alunos/${id}/`;
     return this.http.delete(url);
   }
+
+  addAluno(aluno: any): Observable<any> {
+    const url = "http://127.0.0.1:8000/api/adicionarAluno/";
+    return this.http.post(url, aluno);
+  }
+
+  getCursos(): Observable<any[]> {
+    const url = "http://127.0.0.1:8000/api/cursos/"; // Substitua pelo endpoint correto da sua API
+    return this.http.get<any[]>(url);
+  }
+  
+  getSituacoes(): Observable<any[]> {
+    const url = "http://127.0.0.1:8000/api/situacoes/"; // Substitua pelo endpoint correto da sua API
+    return this.http.get<any[]>(url);
+  }
+
+  getFormasIngresso(): Observable<any[]> {
+    const url = "http://127.0.0.1:8000/api/formas-ingresso/"; // Substitua pelo endpoint correto
+    return this.http.get<any[]>(url);
+  }
+
+  updateAluno(id: string, aluno: any): Observable<any> {
+    const url = `http://127.0.0.1:8000/api/editarAluno/${id}/`;
+    return this.http.patch<any>(url, aluno);
+  }
+
 }

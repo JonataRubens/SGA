@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home-page',
+    redirectTo: 'home-page', // Isso vai redirecionar para a rota home-page ao carregar o app
     pathMatch: 'full'
   },
   {
@@ -17,9 +17,16 @@ const routes: Routes = [
   },
   {
     path: 'home-page',
-    loadChildren: () => import('./home-page/home-page.module').then( m => m.HomePagePageModule)
+    loadChildren: () => import('./home-page/home-page.module').then(m => m.HomePagePageModule)
   },
-
+  {
+    path: 'add-aluno',
+    loadChildren: () => import('./add-aluno/add-aluno.module').then(m => m.AddAlunoPageModule)
+  },
+  {
+    path: 'editar-aluno/:id', // A rota agora vai chamar o módulo EditarAlunoPageModule
+    loadChildren: () => import('./editar-aluno/editar-aluno.module').then(m => m.EditarAlunoPageModule)
+  },
 ];
 
 @NgModule({

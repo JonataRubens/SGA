@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Adicionar Aluno</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="adicionarAluno()">
+    <ion-item>
+      <ion-label position="floating">Nome Completo</ion-label>
+      <ion-input [(ngModel)]="aluno.nomeCompleto" name="nomeCompleto" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">CPF</ion-label>
+      <ion-input [(ngModel)]="aluno.cpf" name="cpf" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Curso</ion-label>
+      <ion-select [(ngModel)]="aluno.curso" name="curso" placeholder="Selecione o curso" required>
+        <ion-select-option *ngFor="let curso of cursos" [value]="curso.id">{{ curso.nome }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Situação</ion-label>
+      <ion-select [(ngModel)]="aluno.situacao" name="situacao" placeholder="Selecione a situação" required>
+        <ion-select-option *ngFor="let situacao of situacoes" [value]="situacao.id">{{ situacao.nome }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Forma de Ingresso</ion-label>
+      <ion-select [(ngModel)]="aluno.formaIngresso" name="formaIngresso" placeholder="Selecione a forma de ingresso" required>
+        <ion-select-option *ngFor="let forma of formasIngresso" [value]="forma.id">{{ forma.nome }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Data de Nascimento</ion-label>
+      <ion-input type="date" [(ngModel)]="aluno.dataNascimento" name="dataNascimento"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" color="primary">Adicionar</ion-button>
+  </form>
+</ion-content>

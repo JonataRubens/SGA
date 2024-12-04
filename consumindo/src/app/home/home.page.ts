@@ -1,6 +1,6 @@
-import { ApiService } from './../service/api.service';
 import { Component } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular'; // Importando NavController
+import { ApiService } from './../service/api.service';
 
 @Component({
   selector: 'app-home',
@@ -8,70 +8,45 @@ import { AlertController, NavController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  dados: any[] = []; // Lista de alunos
+  dados: any[] = []; // Declare como um array genérico
 
   constructor(
-    private apiService: ApiService,
-    private alertController: AlertController, // Adicionado para usar o ion-alert
+    private apiService: ApiService, 
     private navCtrl: NavController
   ) {
     this.getData();
   }
 
-  // Busca os dados da API
+  // Método para pegar os dados da API
   getData() {
     this.apiService.getData().subscribe(
-      (data: any[]) => {
+      (data: any[]) => { // Receba como array de `any`
         console.log(data);
-        this.dados = data;
+        this.dados = data; // Armazene os dados
       },
       error => {
-        console.error('Erro ao buscar dados:', error);
+        console.error("Erro ao buscar dados:", error); // Tratamento de erro
       }
     );
   }
 
-  // Mostra uma confirmação antes de deletar
-  async confirmarDelecao(id: number) {
-    const alert = await this.alertController.create({
-      header: 'Confirmar Exclusão',
-      message: 'Tem certeza que deseja excluir este aluno?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            console.log('Exclusão cancelada');
-          },
-        },
-        {
-          text: 'Excluir',
-          handler: () => {
-            this.deletarAluno(id); // Chama o método para excluir
-          },
-        },
-      ],
-    });
-
-    await alert.present();
+  // Método para navegar para a página de edição
+  editarAluno(id: number) {
+    this.navCtrl.navigateForward(`/editar-aluno/${id}`);
   }
 
-  // Deleta um aluno pelo ID
-  deletarAluno(id: number) {
-    this.apiService.deleteAluno(id).subscribe(
-      () => {
-        console.log(`Aluno com ID ${id} deletado com sucesso.`);
-        // Atualiza a lista após deletar
-        this.dados = this.dados.filter(aluno => aluno.id !== id);
-      },
-      error => {
-        console.error('Erro ao deletar aluno:', error);
-      }
-    );
-  }
-
-  // Volta para a página anterior
-  goBack() {
-    this.navCtrl.back();
+  // Método para deletar aluno
+  confirmarDelecao(id: number) {
+    if (confirm("Tem certeza que deseja excluir este aluno?")) {
+      this.apiService.deleteAluno(id).subscribe(
+        () => {
+          console.log("Aluno excluído com sucesso.");
+          this.getData(); // Atualiza a lista de alunos
+        },
+        error => {
+          console.error("Erro ao excluir aluno:", error);
+        }
+      );
+    }
   }
 }

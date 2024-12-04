@@ -19,6 +19,16 @@
         <p>Situação: {{ aluno.situacao }}</p>
         <p>Data de Nascimento: {{ aluno.dataNascimento || 'N/A' }}</p>
         <p>Forma de Ingresso: {{ aluno.formaIngresso }}</p>
+
+        <!-- Botão de Editar -->
+        <ion-button 
+          color="primary" 
+          expand="full" 
+          (click)="editarAluno(aluno.id)">
+          Editar
+        </ion-button>
+
+        <!-- Botão de Excluir -->
         <ion-button 
           color="danger" 
           expand="full" 
