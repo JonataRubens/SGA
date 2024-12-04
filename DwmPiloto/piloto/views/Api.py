@@ -77,15 +77,20 @@ class FormaIngressoListView(APIView):
         serializer = FormaIngressoSerializer(formas_ingresso, many=True)
         return Response(serializer.data)
     
-class AlunoUpdateAPI(APIView):
+class EditarAlunoAPIView(APIView):
     def patch(self, request, pk):
         try:
-            aluno = Aluno.objects.get(pk=pk)
+            aluno = Aluno.objects.get(id=pk)  # Busca o aluno pelo ID (pk)
         except Aluno.DoesNotExist:
-            return Response({"error": "Aluno não encontrado"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'Aluno não encontrado'}, status=status.HTTP_404_NOT_FOUND)
 
+        # Passa os dados de entrada para o serializer com o modo partial=True para permitir a atualização parcial
         serializer = AlunoSerializer(aluno, data=request.data, partial=True)
+
+        # Verifica se o serializer é válido antes de salvar
         if serializer.is_valid():
-            serializer.save()
+            serializer.save()  # Salva as alterações
             return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        # Caso o serializer não seja válido, retorna o erro
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

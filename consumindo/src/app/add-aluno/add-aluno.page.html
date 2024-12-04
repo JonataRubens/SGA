@@ -1,8 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
     <ion-title>Adicionar Aluno</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -38,11 +35,6 @@
       <ion-select [(ngModel)]="aluno.formaIngresso" name="formaIngresso" placeholder="Selecione a forma de ingresso" required>
         <ion-select-option *ngFor="let forma of formasIngresso" [value]="forma.id">{{ forma.nome }}</ion-select-option>
       </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Data de Nascimento</ion-label>
-      <ion-input type="date" [(ngModel)]="aluno.dataNascimento" name="dataNascimento"></ion-input>
     </ion-item>
 
     <ion-button expand="full" type="submit" color="primary">Adicionar</ion-button>

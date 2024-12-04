@@ -1,9 +1,7 @@
 from django.urls import path
-from piloto.views import CadastrarAlunoView, CampusCreateView, CursoCreateView, DefaultView, ExcluirAlunoView, ListaAlunosView, EditarAlunoView, ListarCampus, AlunoListView, LoginView, CampusCursosListView, AlunoDeleteView, AtualizarSituacaoView, AdicionarAlunoView, AlunoUpdateAPI, CursoListView, FormaIngressoListView, SituacaoListView
+from piloto.views import CadastrarAlunoView, CampusCreateView, CursoCreateView, DefaultView, ExcluirAlunoView, ListaAlunosView, EditarAlunoView, ListarCampus, AlunoListView,  CampusCursosListView, AlunoDeleteView, AtualizarSituacaoView, AdicionarAlunoView, EditarAlunoAPIView, CursoListView, FormaIngressoListView, SituacaoListView, LoginViewAPI, LoginView
 from django.conf import settings
 from django.conf.urls.static import static
-
-
 
 urlpatterns = [
     path('', DefaultView.as_view(), name='Index'),
@@ -15,7 +13,7 @@ urlpatterns = [
     path('listarCampus/', ListarCampus.as_view(), name='listarCampus'),
     path('excluirAluno/<int:pk>/', ExcluirAlunoView.as_view(), name='excluirAluno'),
     path('login/', LoginView.as_view(), name='Login'),
-     path('atualizar-situacao/<int:pk>/', AtualizarSituacaoView.as_view(), name='atualizarSituacao'),
+    path('atualizar-situacao/<int:pk>/', AtualizarSituacaoView.as_view(), name='atualizarSituacao'),
 
     ###############API IONIC#############################
     path('api/alunos/', AlunoListView.as_view(), name='apiAlunos'),
@@ -26,8 +24,9 @@ urlpatterns = [
 
     path('api/alunos/<int:pk>/', AlunoDeleteView.as_view(), name='deleteAluno'),
     path('api/adicionarAluno/', AdicionarAlunoView.as_view(), name='adicionarAluno'),
+    path('api/editarAluno/<int:pk>/', EditarAlunoAPIView.as_view(), name='editarAlunoAPI'),
 
-    path('api/editarAluno/<int:pk>/', AlunoUpdateAPI.as_view(), name='editarAluno'),
+    path('api/login/', LoginViewAPI.as_view(), name='loginApi'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

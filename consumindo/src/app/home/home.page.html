@@ -3,9 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
-      Lista de Alunos
-    </ion-title>
+    <ion-title>Lista de Alunos</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,24 +13,14 @@
       <ion-label>
         <h2>{{ aluno.nomeCompleto }}</h2>
         <p>CPF: {{ aluno.cpf }}</p>
-        <p>Curso: {{ aluno.curso }}</p>
-        <p>Situação: {{ aluno.situacao }}</p>
-        <p>Data de Nascimento: {{ aluno.dataNascimento || 'N/A' }}</p>
-        <p>Forma de Ingresso: {{ aluno.formaIngresso }}</p>
+        <p>Curso: {{ aluno.cursoNome }}</p> <!-- Exibe o nome do curso -->
+        <p>Situação: {{ aluno.situacaoNome }}</p> <!-- Exibe o nome da situação -->
+        <p>Forma de Ingresso: {{ aluno.formaIngressoNome }}</p> <!-- Exibe o nome da forma de ingresso -->
 
-        <!-- Botão de Editar -->
-        <ion-button 
-          color="primary" 
-          expand="full" 
-          (click)="editarAluno(aluno.id)">
+        <ion-button color="primary" expand="full" (click)="editarAluno(aluno.id)">
           Editar
         </ion-button>
-
-        <!-- Botão de Excluir -->
-        <ion-button 
-          color="danger" 
-          expand="full" 
-          (click)="confirmarDelecao(aluno.id)">
+        <ion-button color="danger" expand="full" (click)="confirmarDelecao(aluno.id)">
           Excluir
         </ion-button>
       </ion-label>

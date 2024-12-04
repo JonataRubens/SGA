@@ -18,7 +18,23 @@
     <ion-input [(ngModel)]="aluno.cpf" placeholder="CPF"></ion-input>
   </ion-item>
 
-  <!-- Outros campos, como curso, situação, etc. -->
+  <ion-item>
+    <ion-label position="stacked">Curso</ion-label>
+    <ion-select [(ngModel)]="aluno.curso_id">
+      <ion-select-option *ngFor="let curso of cursos" [value]="curso.id">
+        {{ curso.nome }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Situação</ion-label>
+    <ion-select [(ngModel)]="aluno.situacao_id">
+      <ion-select-option *ngFor="let situacao of situacoes" [value]="situacao.id">
+        {{ situacao.nome }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
 
   <ion-button expand="full" color="primary" (click)="updateAluno()">Salvar</ion-button>
 </ion-content>
