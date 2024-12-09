@@ -71,12 +71,12 @@
                                 <td>{{ aluno.ativoNaInstituicao }}</td>
                                 <td>
                                     <a href="{% url 'editarAluno' aluno.id %}" class="btn btn-info btn-sm">Editar</a>
-
-                                    <!-- Botão para abrir o modal -->
+                                
+                                    <!-- Botão para abrir o modal de situações -->
                                     <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#situacaoModal{{ aluno.id }}">
                                         Situações
                                     </button>
-
+                                
                                     <!-- Modal para alteração da situação -->
                                     <div class="modal fade" id="situacaoModal{{ aluno.id }}" tabindex="-1" role="dialog" aria-labelledby="situacaoModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -109,9 +109,37 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <a href="{% url 'excluirAluno' aluno.id %}" class="btn btn-danger btn-sm">Excluir</a>
+                                
+                                    <!-- Botão para abrir o modal de exclusão -->
+                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluirModal{{ aluno.id }}">
+                                        Excluir
+                                    </button>
+                                
+                                    <!-- Modal para confirmação de exclusão -->
+                                    <div class="modal fade" id="excluirModal{{ aluno.id }}" tabindex="-1" role="dialog" aria-labelledby="excluirModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="excluirModalLabel">Confirmar Exclusão</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form method="POST" action="{% url 'excluirAluno' aluno.id %}">
+                                                    {% csrf_token %}
+                                                    <div class="modal-body">
+                                                        <p>Tem certeza de que deseja excluir o aluno <strong>{{ aluno.nomeCompleto }}</strong>? Esta ação não pode ser desfeita.</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                        <button type="submit" class="btn btn-danger">Excluir</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
+                                
                             </tr>
                         {% empty %}
                             <tr>

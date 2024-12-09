@@ -32,8 +32,6 @@ INSTALLED_APPS = [
     'piloto',
     'rest_framework',
     'corsheaders',
-    'widget_tweaks',
-    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -62,12 +60,6 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',  # ou JWT
-    ],
-}
 
 TEMPLATES = [
     {

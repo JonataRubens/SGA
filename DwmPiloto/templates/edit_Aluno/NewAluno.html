@@ -9,7 +9,7 @@
                 <a href="{% url 'listaAlunos' %}" class="btn btn-sm btn-primary">Lista de Alunos</a>
             </div>
             <div class="card-body">
-                <form method="POST" action="{% url 'cadastrarAluno' %}" enctype="multipart/form-data">
+                <form method="post" action="{% url 'cadastrarAluno' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit" class="btn btn-primary w-100 mt-3">Cadastrar Aluno</button>

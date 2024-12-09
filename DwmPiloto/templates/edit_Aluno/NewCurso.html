@@ -11,7 +11,8 @@
             </div>
             <!-- Card Body -->
             <div class="card-body">
-                <form method="post">
+                
+                <form method="post" action="{% url 'cadastrarCurso' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit" class="btn btn-primary w-100">Salvar</button>

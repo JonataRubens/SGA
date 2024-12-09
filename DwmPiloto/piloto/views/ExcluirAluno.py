@@ -5,7 +5,7 @@ from django.urls import reverse
 from piloto.models import Aluno
 
 class ExcluirAlunoView(View):
-    def get(self, request, pk, *args, **kwargs):
+    def post(self, request, pk, *args, **kwargs):
         # Recuperar o aluno pelo ID (ou retornar 404 se não existir)
         aluno = get_object_or_404(Aluno, pk=pk)
         
