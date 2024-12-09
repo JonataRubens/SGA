@@ -14,3 +14,4 @@ class CampusCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         context['campi'] = Campus.objects.all()  # Passa a lista de campi para o template
         return context
+    
