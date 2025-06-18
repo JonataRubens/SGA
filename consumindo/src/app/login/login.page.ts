@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment'; // Para importar as variáveis de ambiente
 
 @Component({
   selector: 'app-login',
@@ -26,7 +25,7 @@ export class LoginPage {
         // Salvar o token no localStorage ou outro mecanismo de armazenamento
         localStorage.setItem('auth_token', response.token);
         console.log('Login bem-sucedido');
-        this.router.navigate(['/home']); // Redirecionar para a página principal
+        this.router.navigate(['/home-page']); // Redirecionar para a página principal
       },
       (error) => {
         console.error('Erro no login', error);

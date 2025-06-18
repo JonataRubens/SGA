@@ -1,37 +1,46 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
+
 
 const routes: Routes = [
   {
     path: 'Alunos',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '',
-    redirectTo: 'home-page', // Isso vai redirecionar para a rota home-page ao carregar o app
+    redirectTo: 'home-page',
     pathMatch: 'full'
   },
   {
     path: 'Campus',
-    loadChildren: () => import('./about/about.module').then(m => m.AboutPageModule)
+    loadChildren: () => import('./about/about.module').then(m => m.AboutPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'home-page',
-    loadChildren: () => import('./home-page/home-page.module').then(m => m.HomePagePageModule)
+    loadChildren: () => import('./home-page/home-page.module').then(m => m.HomePagePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'add-aluno',
-    loadChildren: () => import('./add-aluno/add-aluno.module').then(m => m.AddAlunoPageModule)
+    loadChildren: () => import('./add-aluno/add-aluno.module').then(m => m.AddAlunoPageModule),
+    canActivate: [AuthGuard]
   },
   {
-    path: 'editar-aluno/:id', // A rota agora vai chamar o módulo EditarAlunoPageModule
-    loadChildren: () => import('./editar-aluno/editar-aluno.module').then(m => m.EditarAlunoPageModule)
+    path: 'editar-aluno/:id',
+    loadChildren: () => import('./editar-aluno/editar-aluno.module').then(m => m.EditarAlunoPageModule),
+    canActivate: [AuthGuard]
   },
   {
-    path: 'login', // A rota para login
+    path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+    // Não coloque AuthGuard aqui!
   },
 ];
+
 
 @NgModule({
   imports: [

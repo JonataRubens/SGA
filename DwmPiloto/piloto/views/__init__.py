@@ -10,7 +10,7 @@ from .ExcluirAluno import ExcluirAlunoView
 from .Login import LoginView
 from .AtualizarSituacao import AtualizarSituacaoView
 from .Api import AlunoListView, CampusCursosListView, AlunoDeleteView, AdicionarAlunoView, EditarAlunoViewAPI, SituacaoListView, CursoListView, FormaIngressoListView, EditarAlunoAPIView
-
+from .Logout import LogoutView
 
 
 

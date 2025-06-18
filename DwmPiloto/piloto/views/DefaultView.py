@@ -1,8 +1,11 @@
 from django.views.generic import TemplateView
 from piloto.models import Aluno, Campus, Curso
 from django.db.models import Count
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class DefaultView(TemplateView):
+class DefaultView(LoginRequiredMixin,TemplateView):
+    login_url= 'Login'
+    redirect_field_name= 'next'
     template_name = 'index/Index.html'
 
     def get_context_data(self, **kwargs):

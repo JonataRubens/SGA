@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>Adicionar Aluno</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -17,21 +20,21 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Curso</ion-label>
+      <ion-label position="floating"></ion-label>
       <ion-select [(ngModel)]="aluno.curso" name="curso" placeholder="Selecione o curso" required>
         <ion-select-option *ngFor="let curso of cursos" [value]="curso.id">{{ curso.nome }}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Situação</ion-label>
+      <ion-label position="floating"></ion-label>
       <ion-select [(ngModel)]="aluno.situacao" name="situacao" placeholder="Selecione a situação" required>
         <ion-select-option *ngFor="let situacao of situacoes" [value]="situacao.id">{{ situacao.nome }}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Forma de Ingresso</ion-label>
+      <ion-label position="floating"></ion-label>
       <ion-select [(ngModel)]="aluno.formaIngresso" name="formaIngresso" placeholder="Selecione a forma de ingresso" required>
         <ion-select-option *ngFor="let forma of formasIngresso" [value]="forma.id">{{ forma.nome }}</ion-select-option>
       </ion-select>

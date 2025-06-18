@@ -15,6 +15,9 @@ class LoginView(View):
         
         if user is not None:
             login(request, user)
-            return redirect('listaAlunos')
+            return redirect('/')
             
-        return render(request, 'index/Login.html')
+        else:
+            # Retorna com mensagem de erro
+            context = {'error_message': 'Usuário ou senha inválidos.'}
+            return render(request, 'index/Login.html', context)

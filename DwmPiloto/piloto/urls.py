@@ -1,5 +1,5 @@
 from django.urls import path
-from piloto.views import CadastrarAlunoView, CampusCreateView, CursoCreateView, DefaultView, ExcluirAlunoView, ListaAlunosView, EditarAlunoView, ListarCampus, AlunoListView,  CampusCursosListView, AlunoDeleteView, AtualizarSituacaoView, AdicionarAlunoView, EditarAlunoAPIView, CursoListView, FormaIngressoListView, SituacaoListView, LoginViewAPI, LoginView
+from piloto.views import CadastrarAlunoView, CampusCreateView, CursoCreateView, DefaultView, ExcluirAlunoView, ListaAlunosView, EditarAlunoView, ListarCampus, AlunoListView,  CampusCursosListView, AlunoDeleteView, AtualizarSituacaoView, AdicionarAlunoView, EditarAlunoAPIView, CursoListView, FormaIngressoListView, SituacaoListView, LoginViewAPI, LoginView, LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -14,6 +14,7 @@ urlpatterns = [
     path('excluirAluno/<int:pk>/', ExcluirAlunoView.as_view(), name='excluirAluno'),
     path('login/', LoginView.as_view(), name='Login'),
     path('atualizar-situacao/<int:pk>/', AtualizarSituacaoView.as_view(), name='atualizarSituacao'),
+    path('logout/', LogoutView.as_view(), name='logout'),
 
     ###############API IONIC#############################
     path('api/alunos/', AlunoListView.as_view(), name='apiAlunos'),
