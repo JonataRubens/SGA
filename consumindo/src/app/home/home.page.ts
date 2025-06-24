@@ -14,15 +14,17 @@ export class HomePage {
   formasIngresso: any[] = [];  // Lista de formas de ingresso (pode vir da API ou de um serviço)
 
   constructor(
-    private apiService: ApiService, 
+    private apiService: ApiService,
     private navCtrl: NavController
-  ) {
-    this.getData();
-    this.getCursos();  // Obtém a lista de cursos
-    this.getSituacoes();  // Obtém a lista de situações
-    this.getFormasIngresso();  // Obtém a lista de formas de ingresso
-  }
+  ) {}
 
+  // <-- Adicione este método -->
+  ionViewWillEnter() {
+    this.getCursos();
+    this.getSituacoes();
+    this.getFormasIngresso();
+    this.getData();
+  }
   // Método para pegar os dados da API
   getData() {
     this.apiService.getData().subscribe(
