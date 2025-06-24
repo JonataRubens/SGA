@@ -20,7 +20,7 @@
 
   <ion-item>
     <ion-label position="stacked">Curso</ion-label>
-    <ion-select [(ngModel)]="aluno.curso_id">
+    <ion-select [(ngModel)]="aluno.curso">
       <ion-select-option *ngFor="let curso of cursos" [value]="curso.id">
         {{ curso.nome }}
       </ion-select-option>
@@ -29,9 +29,17 @@
 
   <ion-item>
     <ion-label position="stacked">Situação</ion-label>
-    <ion-select [(ngModel)]="aluno.situacao_id">
+    <ion-select [(ngModel)]="aluno.situacao">
       <ion-select-option *ngFor="let situacao of situacoes" [value]="situacao.id">
         {{ situacao.nome }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Formas de ingresso</ion-label>
+    <ion-select [(ngModel)]="aluno.formaIngresso">
+      <ion-select-option *ngFor="let ingresso of formaIngresso" [value]="ingresso.id">
+        {{ ingresso.nome }} <!-- Corrigido para ingresso.nome -->
       </ion-select-option>
     </ion-select>
   </ion-item>

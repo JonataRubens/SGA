@@ -12,6 +12,7 @@ export class EditarAlunoPage implements OnInit {
   aluno: any = {};
   cursos: any[] = [];
   situacoes: any[] = [];
+  formaIngresso: any[] = []; 
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -27,21 +28,25 @@ export class EditarAlunoPage implements OnInit {
 
     this.getCursos();
     this.getSituacoes();
+    this.getFormaIngresso();
   }
 
-  getAluno(id: string) {
-    this.apiService.getData().subscribe((alunos: any[]) => {
-      this.aluno = alunos.find(a => a.id === parseInt(id));
-      // Remova qualquer dado que não seja necessário para o PATCH
-      this.aluno = {
-        id: this.aluno.id,
-        nomeCompleto: this.aluno.nomeCompleto,
-        cpf: this.aluno.cpf,
-        curso_id: this.aluno.curso.id,
-        situacao_id: this.aluno.situacao.id,
-      };
-    });
-  }
+ getAluno(id: string) {
+  this.apiService.getData().subscribe((alunos: any[]) => {
+    const alunoOriginal = alunos.find(a => a.id === parseInt(id));
+    
+    // Mantenha os nomes que o Django espera:
+    this.aluno = {
+      id: alunoOriginal.id,
+      nomeCompleto: alunoOriginal.nomeCompleto,
+      cpf: alunoOriginal.cpf,
+      curso: alunoOriginal.curso.id,          // ✅ Nome correto
+      situacao: alunoOriginal.situacao.id,    // ✅ Nome correto
+      formaIngresso: alunoOriginal.formaIngresso.id
+    };
+  });
+}
+
   
 
   getCursos() {
@@ -53,6 +58,12 @@ export class EditarAlunoPage implements OnInit {
   getSituacoes() {
     this.apiService.getSituacoes().subscribe(data => {
       this.situacoes = data;
+    });
+  }
+
+  getFormaIngresso() {
+    this.apiService.getFormasIngresso().subscribe(data => {
+      this.formaIngresso = data;
     });
   }
 
